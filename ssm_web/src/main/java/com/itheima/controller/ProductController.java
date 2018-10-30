@@ -15,8 +15,8 @@ import java.util.List;
  * @Date: 2018/10/30 19:54
  * @Version 1.0
  */
-@RequestMapping("/product")
 @Controller
+@RequestMapping("/product")
 public class ProductController {
 
     @Autowired
