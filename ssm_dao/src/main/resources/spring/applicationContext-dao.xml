@@ -26,8 +26,26 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!--设置数据源-->
         <property name="dataSource" ref="dataSource"/>
+        <!--xml文件-->
+        <property name="mapperLocations" value="classpath:com/itheima/dao/mappr/*.xml"></property>
         <!--扫描pojo，给pojo起别名-->
         <property name="typeAliasesPackage" value="com.itheima.domain"/>
+        <!--传入PageHelper的插件-->
+        <property name="plugins">
+            <array>
+                <!--传入插入对象-->
+                <bean class="com.github.pagehelper.PageInterceptor">
+             <property name="properties">
+                 <props>
+                     <!--数据库类型-->
+                     <prop key="helperDialect">oracle</prop>
+                     <!--分页合理化参数-->
+                     <prop key="reasonable">true</prop>
+                 </props>
+             </property>
+                </bean>
+            </array>
+        </property>
     </bean>
     <!--扫描dao-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

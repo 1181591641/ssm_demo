@@ -22,6 +22,17 @@
         <property name="prefix" value="/pages/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
+    <!--处理器映射器，处理器适配器-->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <!-- 指定springmvc json转换工具包使用fastjson -->
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"></bean>
+
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+
     <!--开启springmvc支持-->
     <mvc:annotation-driven/>
     <mvc:default-servlet-handler/>

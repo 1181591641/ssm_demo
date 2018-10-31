@@ -11,7 +11,10 @@ import java.util.List;
  * @Date: 2018/10/30 18:26
  * @Version 1.0
  */
+
 public interface IProductService {
+    //产品添加
+    public void save(Product product)throws  Exception;
 
     //查询所有的产品信息
     public List<Product> findAll() throws  Exception;

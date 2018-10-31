@@ -8,19 +8,19 @@ import java.util.List;
 
 //订单
 public class Orders {
-    private String id;
-    private String orderNum;
-    private Date orderTime;
+    private String id;//主键id
+    private String orderNum;//订单编号
+    private Date orderTime;//下单时间
     private String orderTimeStr;
-    private int orderStatus;
+    private Integer orderStatus;//订单状态 0未支付 1已支付
     private String orderStatusStr;
-    private int peopleCount;
-    private Product product;
+    private Integer peopleCount;//出行人数
+    private Product product;//产品
     private List<Traveller> travellers;
     private Member member;
-    private Integer payType;
+    private Integer payType;//支付方式 0支付宝 1微信 2其他
     private String payTypeStr;
-    private String orderDesc;
+    private String orderDesc;//订单描述
 
     public String getOrderStatusStr() {
         //订单状态(0 未支付 1 已支付)
@@ -75,7 +75,7 @@ public class Orders {
         return orderStatus;
     }
 
-    public void setOrderStatus(int orderStatus) {
+    public void setOrderStatus(Integer orderStatus) {
         this.orderStatus = orderStatus;
     }
 
@@ -83,7 +83,7 @@ public class Orders {
         return peopleCount;
     }
 
-    public void setPeopleCount(int peopleCount) {
+    public void setPeopleCount(Integer peopleCount) {
         this.peopleCount = peopleCount;
     }
 

@@ -1,14 +1,14 @@
 package com.itheima.domain;
 //旅客
 public class Traveller {
-    private String id;
-    private String name;
-    private String sex;
-    private String phoneNum;
-    private Integer credentialsType;
+    private String id;//主键
+    private String name;//姓名
+    private String sex;//性别
+    private String phoneNum;//电话号码
+    private Integer credentialsType;//证件类型 0身份证 1护照 2军官证
     private String credentialsTypeStr;
-    private String credentialsNum;
-    private Integer travellerType;
+    private String credentialsNum;//证件号码
+    private Integer travellerType;//旅客类型 0成人 1儿童
     private String travellerTypeStr;
 
     public String getId() {

@@ -92,7 +92,7 @@
 			<!-- 内容头部 /-->
 
 			<form action="${pageContext.request.contextPath}/product/save.do"
-				method="post">
+				method="post" id="registerForm">
 				<!-- 正文区域 -->
 				<section class="content"> <!--产品信息-->
 
@@ -103,12 +103,12 @@
 						<div class="col-md-2 title">产品编号</div>
 						<div class="col-md-4 data">
 							<input type="text" class="form-control" name="productNum"
-								placeholder="产品编号" value="">
+								placeholder="产品编号" value="" id="productNum">
 						</div>
 						<div class="col-md-2 title">产品名称</div>
 						<div class="col-md-4 data">
 							<input type="text" class="form-control" name="productName"
-								placeholder="产品名称" value="">
+								placeholder="产品名称" value="" id="productName">
 						</div>
 						<div class="col-md-2 title">出发时间</div>
 						<div class="col-md-4 data">
@@ -117,7 +117,7 @@
 									<i class="fa fa-calendar"></i>
 								</div>
 								<input type="text" class="form-control pull-right"
-									id="datepicker-a3" name="departureTime">
+									id="datepicker-a3" name="departureTime" >
 							</div>
 						</div>
 
@@ -125,18 +125,18 @@
 						<div class="col-md-2 title">出发城市</div>
 						<div class="col-md-4 data">
 							<input type="text" class="form-control" name="cityName"
-								placeholder="出发城市" value="">
+								placeholder="出发城市" value="" id="cityName">
 						</div>
 
 						<div class="col-md-2 title">产品价格</div>
 						<div class="col-md-4 data">
 							<input type="text" class="form-control" placeholder="产品价格"
-								name="productPrice" value="">
+								name="productPrice" value="" id="productPrice">
 						</div>
 
 						<div class="col-md-2 title">产品状态</div>
 						<div class="col-md-4 data">
-							<select class="form-control select2" style="width: 100%"
+							<select class="form-control select2" style="	width: 100%"
 								name="productStatus">
 								<option value="0" selected="selected">关闭</option>
 								<option value="1">开启</option>
@@ -146,7 +146,7 @@
 						<div class="col-md-2 title rowHeight2x">其他信息</div>
 						<div class="col-md-10 data rowHeight2x">
 							<textarea class="form-control" rows="3" placeholder="其他信息"
-								name="productDesc"></textarea>
+								name="productDesc" id="productDesc"></textarea>
 						</div>
 
 					</div>
@@ -300,6 +300,145 @@
 			});
 
 		});
+
+
+		//表单验证
+		function checkproductNum() {
+            var username = $("#productNum").val();
+            //2.定义正则
+            var reg_username = /^itcast-\w*$/;
+
+            //3.判断，给出提示信息
+            var flag = reg_username.test(username);
+            if(flag){
+                //用户名合法
+                $("#productNum").css("border","");
+            }else{
+                //用户名非法,加一个红色边框
+                $("#productNum").css("border","1px solid red");
+            }
+            return flag;
+        }
+
+        function checkproductName() {
+            var username = $("#productName").val();
+            //2.定义正则
+            var reg_username = /^[\u4E00-\u9FA5A-Za-z0-9]{2,20}$/;
+
+            //3.判断，给出提示信息
+            var flag = reg_username.test(username);
+            if(flag){
+                //用户名合法
+                $("#productName").css("border","");
+            }else{
+                //用户名非法,加一个红色边框
+                $("#productName").css("border","1px solid red");
+            }
+            return flag;
+        }
+
+        function checkdatepicker() {
+            var username = $("#datepicker-a3").val();
+            //2.定义正则
+
+            var reg_username = /^\d{4}-\d{1,2}-\d{1,2}/;
+
+            //3.判断，给出提示信息
+            var flag = reg_username.test(username);
+            if(flag){
+                //用户名合法
+                $("#datepicker-a3").css("border","");
+
+
+            }else{
+                //用户名非法,加一个红色边框
+                $("#datepicker-a3").css("border","1px solid red");
+
+            }
+            return flag;
+        }
+
+
+        function checkcityName() {
+            var username = $("#cityName").val();
+            //2.定义正则
+            var reg_username = /^[\u4E00-\u9FA5A-Za-z0-9]{2,20}$/;
+
+            //3.判断，给出提示信息
+            var flag = reg_username.test(username);
+            if(flag){
+                //用户名合法
+                $("#cityName").css("border","");
+            }else{
+                //用户名非法,加一个红色边框
+                $("#cityName").css("border","1px solid red");
+            }
+            return flag;
+        }
+
+        function checkproductPrice() {
+            var username = $("#productPrice").val();
+            //2.定义正则
+            var reg_username = /^(0|[1-9][0-9]*)$/;
+
+            //3.判断，给出提示信息
+            var flag = reg_username.test(username);
+            if(flag){
+                //用户名合法
+                $("#productPrice").css("border","");
+            }else{
+                //用户名非法,加一个红色边框
+                $("#productPrice").css("border","1px solid red");
+            }
+            return flag;
+        }
+        function checkproductDesc() {
+            var username = $("#productDesc").val();
+            //2.定义正则
+
+
+            var reg_username = /^[\u4E00-\u9FA5A-Za-z0-9]{2,20}$/;
+
+            //3.判断，给出提示信息
+            var flag = reg_username.test(username);
+            if(flag){
+                //用户名合法
+                $("#productDesc").css("border","");
+                flag=true;
+
+            }else{
+                //用户名非法,加一个红色边框
+                $("#productDesc").css("border","1px solid red");
+                flag=false;
+            }
+            return flag;
+        }
+        
+        
+        
+
+        $(function () {
+
+            //当表单提交时，调用所有的校验方法
+            $("#registerForm").submit(function(){
+                //1.发送数据到服务器
+                if(checkproductNum() && checkcityName() &&checkdatepicker() &&checkproductDesc() &&checkproductName() &&checkproductPrice()){
+
+                         return true;
+
+
+                }
+                //2.不让页面跳转
+                return false;
+                //如果这个方法没有返回值，或者返回为true，则表单提交，如果返回为false，则表单不提交
+            });
+            $("#productNum").blur(checkproductNum);
+            $("#cityName").blur(checkcityName);
+            $("#datepicker-a3").blur(checkdatepicker);
+            $("#productDesc").blur(checkproductDesc);
+            $("#productName").blur(checkproductName);
+            $("#productPrice").blur(checkproductPrice);
+        });
 	</script>
 
 

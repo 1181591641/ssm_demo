@@ -1,5 +1,7 @@
 package com.itheima.ProductTest;
 
+import com.itheima.dao.IOrdersDao;
+import com.itheima.domain.Orders;
 import com.itheima.domain.Product;
 import com.itheima.service.IProductService;
 import org.junit.Test;
@@ -17,8 +19,8 @@ public class ProductTest01 {
     @Test
     public void testProductTest01() throws Exception {
         ApplicationContext ac=new ClassPathXmlApplicationContext("applicationContext.xml");
-        IProductService bean = ac.getBean(IProductService.class);
-        List<Product> all = bean.findAll();
+        IOrdersDao bean = ac.getBean(IOrdersDao.class);
+        List<Orders> all = bean.findAll();
         all.forEach(System.out::println);
     }
 }
