@@ -1,6 +1,7 @@
 package com.itheima.controller;
 
 import com.alibaba.druid.stat.TableStat;
+import com.github.pagehelper.PageInfo;
 import com.itheima.domain.Product;
 import com.itheima.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -31,10 +33,11 @@ public class ProductController {
      * @throws Exception
      */
     @RequestMapping("/findAll.do")
-    public ModelAndView findAll() throws Exception {
+    public ModelAndView findAll(@RequestParam(name = "page", required = true, defaultValue = "1") int page, @RequestParam(name = "size", required = true, defaultValue = "4") int size) throws Exception {
         ModelAndView mv = new ModelAndView();
-        List<Product> Product = service.findAll();
-        mv.addObject("productList", Product);
+        List<Product> Product = service.findAll(page,size);
+        PageInfo pageInfo = new PageInfo(Product);
+        mv.addObject("pageInfo", pageInfo);
         mv.setViewName("product-list");
         return mv;
 

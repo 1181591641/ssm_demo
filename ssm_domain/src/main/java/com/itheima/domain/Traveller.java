@@ -1,4 +1,5 @@
 package com.itheima.domain;
+
 //旅客
 public class Traveller {
     private String id;//主键
@@ -52,7 +53,17 @@ public class Traveller {
     }
 
     public String getCredentialsTypeStr() {
+
+        //证件类型 0身份证 1护照 2军官证
+        if (credentialsType == 0) {
+            credentialsTypeStr = "身份证";
+        } else if (credentialsType == 1) {
+            credentialsTypeStr = "护照";
+        } else if (credentialsType == 2) {
+            credentialsTypeStr = "身份证";
+        }
         return credentialsTypeStr;
+
     }
 
     public void setCredentialsTypeStr(String credentialsTypeStr) {

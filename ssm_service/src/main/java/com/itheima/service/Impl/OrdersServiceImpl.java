@@ -21,9 +21,14 @@ public class OrdersServiceImpl implements IOrdersService {
     private IOrdersDao dao;
 
     @Override
-    public List<Orders> findAll(int page,int size) throws Exception {
+    public List<Orders> findAll(int page, int size) throws Exception {
         //参数pagenum是页码值 pageSize是每页显示条数
-        PageHelper.startPage(page,size);
+        PageHelper.startPage(page, size);
         return dao.findAll();
+    }
+
+    @Override
+    public Orders findById(String id) throws Exception {
+        return dao.findById(id);
     }
 }

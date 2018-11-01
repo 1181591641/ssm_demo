@@ -12,5 +12,7 @@ import java.util.List;
 
 public interface IOrdersService {
     //查询所有订单
-    public List<Orders> findAll(int page,int size) throws Exception;
+    public List<Orders> findAll(int page, int size) throws Exception;
+
+    public Orders findById(String id) throws Exception;
 }

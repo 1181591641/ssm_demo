@@ -8,10 +8,27 @@
         <result property="orderNum" column="orderNum"/>
         <result property="orderTime" column="orderTime"/>
         <result property="orderStatus" column="orderStatus"/>
-        <association property="product" column="productId" javaType="product" select="com.itheima.dao.IProductDao.findProductById">
+        <association property="product" column="productId"
+                     select="com.itheima.dao.IProductDao.findProductById">
         </association>
     </resultMap>
+
+
     <select id="findAll" resultMap="OrdersList">
        SELECT * FROM orders
     </select>
+    <resultMap id="ordersform" type="orders" extends="OrdersList">
+        <result property="peopleCount" column="peopleCount"/>
+        <result property="orderDesc" column="orderDesc"/>
+        <association property="member" column="MEMBERID"
+                     select="com.itheima.dao.IMemberDao.findMemberById">
+        </association>
+        <collection property="travellers" column="id" select="com.itheima.dao.ITravellersDao.findTravellerById">
+        </collection>
+    </resultMap>
+    <select id="findById" resultMap="ordersform" parameterType="java.lang.String">
+        select * from orders where id=#{id}
+    </select>
+
+
 </mapper>

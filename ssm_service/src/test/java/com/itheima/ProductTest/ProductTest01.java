@@ -1,9 +1,11 @@
 package com.itheima.ProductTest;
 
 import com.itheima.dao.IOrdersDao;
+import com.itheima.dao.IUserInfoDao;
 import com.itheima.domain.Orders;
 import com.itheima.domain.Product;
 import com.itheima.service.IProductService;
+import com.itheima.service.IUserService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -19,8 +21,8 @@ public class ProductTest01 {
     @Test
     public void testProductTest01() throws Exception {
         ApplicationContext ac=new ClassPathXmlApplicationContext("applicationContext.xml");
-        IOrdersDao bean = ac.getBean(IOrdersDao.class);
-        List<Orders> all = bean.findAll();
-        all.forEach(System.out::println);
+        IUserInfoDao bean = ac.getBean(IUserInfoDao.class);
+        System.out.println(bean);
+
     }
 }

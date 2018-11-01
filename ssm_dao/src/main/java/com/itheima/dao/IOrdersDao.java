@@ -13,4 +13,6 @@ public interface IOrdersDao {
 
     //查询所有订单
     public List<Orders> findAll() throws Exception;
+
+    Orders findById(String id) throws  Exception;
 }

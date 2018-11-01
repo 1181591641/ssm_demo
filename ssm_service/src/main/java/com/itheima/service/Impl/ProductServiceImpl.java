@@ -1,5 +1,6 @@
 package com.itheima.service.Impl;
 
+import com.github.pagehelper.PageHelper;
 import com.itheima.dao.IProductDao;
 import com.itheima.domain.Product;
 import com.itheima.service.IProductService;
@@ -25,7 +26,8 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public List<Product> findAll() throws Exception {
+    public List<Product> findAll(int page,int size) throws Exception {
+        PageHelper.startPage(page,size);
         return dao.findAll();
     }
 }
