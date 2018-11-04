@@ -10,5 +10,10 @@ import java.util.List;
  * @Version 1.0
  */
 public interface IRoleDao {
+    //查询所有角色
+    List<Role> findAll() throws Exception;
 
+    Role findById(String id)throws  Exception;
+
+    void save(Role role) throws Exception;
 }

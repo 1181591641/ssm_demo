@@ -1,11 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-        <!DOCTYPE mapper
-                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.itheima.dao.IRoleDao">
 
-    <!--根据ID查询对应会员信息-->
+    <!--根据ID查询对角色信息-->
     <select id="findRoleById" parameterType="java.lang.String" resultType="role">
         SELECT * FROM ROLE WHERE ID IN (SELECT ROLEID FROM users_role WHERE USERID=#{userId})
     </select>
+
+    <resultMap id="roleList" type="role">
+        <id property="id" column="id"/>
+        <result property="roleName" column="roleName"/>
+        <result property="roleDesc" column="roleDesc"/>
+        <collection property="permissions" column="id" javaType="java.util.List"
+                    select="com.itheima.dao.IPermissionDao.findById"/>
+    </resultMap>
+    <!--根据ID查询对角色信息-->
+    <select id="findByIds" parameterType="java.lang.String" resultMap="roleList">
+        SELECT * FROM ROLE WHERE ID IN (SELECT ROLEID FROM users_role WHERE USERID=#{userId})
+    </select>
+    <!--查询所有角色-->
+    <select id="findAll" resultType="role">
+ SELECT * FROM ROLE
+    </select>
+
+    <!--根据id查询角色-->
+    <select id="findById" resultMap="roleList" parameterType="java.lang.String">
+ SELECT * FROM ROLE where id=#{id}
+    </select>
+    <!--添加角色信息-->
+    <insert id="save"  parameterType="role">
+        insert into role(roleName,roleDesc) values(#{roleName},#{roleDesc})
+    </insert>
 </mapper>

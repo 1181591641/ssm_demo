@@ -337,7 +337,7 @@
 								</li>
 
 								<c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
-									<li>
+									<li class="${pageInfo.pageNum==pageNum?"active":""}">
 										<a href="${pageContext.request.contextPath}/orders/findAll.do?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a>
 									</li>
 								</c:forEach>

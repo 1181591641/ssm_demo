@@ -10,13 +10,41 @@
         <result property="username" column="username"></result>
         <result property="password" column="password"></result>
         <result property="status" column="status"></result>
-        <collection property="roles" column="id" javaType="java.util.List" select="com.itheima.dao.IRoleDao.findRoleById"/>
+        <collection property="roles" column="id" javaType="java.util.List"
+                    select="com.itheima.dao.IRoleDao.findRoleById"/>
     </resultMap>
 
-    <!--查询所有用户-->
-<select id="findByUsername" resultMap="userlist" parameterType="String">
+
+    <!--根据姓名查询所有用户-->
+    <select id="findByUsername" resultMap="userlist" parameterType="String">
     select * from users where username=#{username}
+</select>
+    <!--查询所有用户-->
+    <select id="findAll" resultType="userInfo">
+    select * from users
 </select>
 
 
+    <!--添加用户信息-->
+    <insert id="save" parameterType="userInfo">
+    INSERT INTO USERS(email,username,password,phonenum,status) values (#{email},#{username},#{password},#{phoneNum},#{status})
+</insert>
+    <!--查询重复邮箱-->
+    <select id="userEmail" resultType="userInfo" parameterType="java.lang.String">
+      select * from users where email=#{email}
+    </select>
+
+    <resultMap id="userList" type="userInfo">
+        <id property="id" column="id"></id>
+        <result property="email" column="email"></result>
+        <result property="username" column="username"></result>
+        <result property="password" column="password"></result>
+        <result property="status" column="status"></result>
+        <collection property="roles" column="id" javaType="java.util.List" select="com.itheima.dao.IRoleDao.findByIds"/>
+    </resultMap>
+
+    <!--根据id查询信息用户信息-->
+    <select id="findById" resultMap="userList" parameterType="java.lang.String">
+SELECT * FROM USERS WHERE ID=#{id}
+    </select>
 </mapper>
