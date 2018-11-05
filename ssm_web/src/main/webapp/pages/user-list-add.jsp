@@ -201,12 +201,34 @@
                             <li>
                                 <a href="${pageContext.request.contextPath}/role/userfindAll.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}">上一页</a>
                             </li>
-                            <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                            <%--定义开始位置--%>
+                            <c:set var="begin"/>
+                            <%--定义结束位置--%>
+                            <c:set var="end"/>
+
+                            <c:if test="${pageInfo.pages<10}">
+                                <c:set var="begin" value="1"/>
+                                <c:set var="end" value="${pageInfo.pages}"/>
+
+                            </c:if>
+                            <c:if test="${pageInfo.pages>10}">
+                                <c:set var="begin" value="${pageInfo.pageNum-5}"/>
+                                <c:set var="end" value="${pageInfo.pageNum+4}"/>
+
+                                <c:if test="${begin<1}">
+                                    <c:set var="begin" value="1"/>
+                                    <c:set var="end" value="${begin+9}"/>
+                                </c:if>
+                                <c:if test="${end>pageInfo.pages}">
+                                    <c:set var="end" value="${pageInfo.pages}"/>
+                                    <c:set var="begin" value="${end-9}"/>
+                                </c:if>
+                            </c:if>
+
+                            <c:forEach begin="${begin}" end="${end}" var="pageNum">
                                 <li class="${pageInfo.pageNum==pageNum?"active":""}">
-                                    <a href="${pageContext.request.contextPath}/role/userfindAll.do?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a>
-
+                                    <a href="${pageContext.request.contextPath}/role/findAll.do?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a>
                                 </li>
-
                             </c:forEach>
                             <li>
                                 <a href="${pageContext.request.contextPath}/role/userfindAll.do?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}">下一页</a>
