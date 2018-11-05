@@ -30,7 +30,31 @@
  SELECT * FROM ROLE where id=#{id}
     </select>
     <!--添加角色信息-->
-    <insert id="save"  parameterType="role">
+    <insert id="save" parameterType="role">
         insert into role(roleName,roleDesc) values(#{roleName},#{roleDesc})
+    </insert>
+
+
+    <!--//根据用户id获取没有绑定的角色-->
+    <select id="findUserByIdAndAllRole" parameterType="java.lang.String" resultType="role">
+        SELECT * FROM ROLE WHERE ID not IN (SELECT ROLEID FROM users_role WHERE USERID=#{id})
+    </select>
+
+
+    <!--添加用户与角色的关联关系-->
+    <insert id="addRoleToUser" parameterType="java.lang.String">
+        insert  into users_role(userid,roleid) values(#{userid},#{roleid})
+    </insert>
+
+
+
+    <!--获取角色未关联的所有权限-->
+    <select id="findROleAndAllRole" resultType="com.itheima.domain.Permission" parameterType="java.lang.String">
+        SELECT  * FROM permission WHERE ID  not IN(SELECT  permissionId FROM role_permission WHERE roleId=#{id})
+    </select>
+
+    <!--添加角色与权限的关联-->
+    <insert id="addPermissionToRole" parameterType="java.lang.String">
+        insert into role_permission(permissionid,roleid) values(#{permissionid},#{roleid})
     </insert>
 </mapper>

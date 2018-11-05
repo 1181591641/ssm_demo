@@ -157,8 +157,8 @@
                                         <a href="${pageContext.request.contextPath}/pages/role-add.jsp"
                                            class="btn bg-olive btn-xs">添加角色</a>
 
-                                        <a href="${pageContext.request.contextPath}/role/userfindAll.do?id=${role.id}"
-                                           class="btn bg-olive btn-xs">绑定用户</a>
+                                        <a href="${pageContext.request.contextPath}/role/findROleAndAllRole.do?id=${role.id}"
+                                           class="btn bg-olive btn-xs">添加权限</a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -206,13 +206,36 @@
 
                             <li>
                                 <a href="${pageContext.request.contextPath}/role/findAll.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}">上一页</a>
-                              <c:forEach  begin="1" end="${pageInfo.pages}" var="pageNum">
-                            </li>
-                            <li class="${pageInfo.pageNum==pageNum?"active":""}">
-                                <a href="${pageContext.request.contextPath}/role/findAll.do?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a></li>
+                                <%--定义开始位置--%>
+                                <c:set var="begin"/>
+                                <%--定义结束位置--%>
+                                <c:set var="end"/>
 
+                                <c:if test="${pageInfo.pages<10}">
+                                    <c:set var="begin" value="1"/>
+                                    <c:set var="end" value="${pageInfo.pages}"/>
+
+                                </c:if>
+                                <c:if test="${pageInfo.pages>10}">
+                                    <c:set var="begin" value="${pageInfo.pageNum-5}"/>
+                                    <c:set var="end" value="${pageInfo.pageNum+4}"/>
+
+                                <c:if test="${begin<1}">
+                                    <c:set var="begin" value="1"/>
+                                    <c:set var="end" value="${begin+9}"/>
+                                </c:if>
+                                <c:if test="${end>pageInfo.pages}">
+                                    <c:set var="end" value="${pageInfo.pages}"/>
+                                    <c:set var="begin" value="${end-9}"/>
+                                </c:if>
+                                </c:if>
+
+                                <c:forEach begin="${begin}" end="${end}" var="pageNum">
+                            <li class="${pageInfo.pageNum==pageNum?"active":""}">
+                                <a href="${pageContext.request.contextPath}/role/findAll.do?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a>
+                            </li>
+                            </c:forEach>
                             <li>
-                                </c:forEach>
                                 <a href="${pageContext.request.contextPath}/role/findAll.do?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}">下一页</a>
                             </li>
                             <li>

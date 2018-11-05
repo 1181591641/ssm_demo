@@ -13,6 +13,9 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
     <!--解决中文乱码-->
     <filter>
         <filter-name>characterEncodingFilter</filter-name>
@@ -22,6 +25,10 @@
             <param-value>UTF-8</param-value>
         </init-param>
     </filter>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/403.jsp</location>
+    </error-page>
     <filter-mapping>
         <filter-name>characterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -48,7 +55,11 @@
     <servlet-mapping>
         <servlet-name>dispatcherServlet</servlet-name>
         <url-pattern>/</url-pattern>
-    </servlet-mapping><welcome-file-list>
+    </servlet-mapping>
+
+
+    <welcome-file-list>
+    
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
     <welcome-file>index.jsp</welcome-file>
@@ -56,5 +67,6 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
 </welcome-file-list>
+
 
 </web-app>

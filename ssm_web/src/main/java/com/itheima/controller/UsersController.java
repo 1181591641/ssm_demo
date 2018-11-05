@@ -1,14 +1,18 @@
 package com.itheima.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.itheima.domain.Role;
 import com.itheima.domain.UserInfo;
+import com.itheima.service.IRoleService;
 import com.itheima.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import javax.annotation.security.RolesAllowed;
+import java.util.*;
 
 /**
  * @Author: XXX
@@ -20,6 +24,8 @@ import java.util.List;
 public class UsersController {
     @Autowired
     private IUserService service;
+    @Autowired
+    private IRoleService roleService;
 
     /**
      * 查询所有用户
@@ -29,7 +35,8 @@ public class UsersController {
      * @return
      */
     @RequestMapping("/findAll.do")
-    public ModelAndView findAll(@RequestParam(name = "page", required = true, defaultValue = "1") int page, @RequestParam(name = "size", required = true, defaultValue = "4") int size) throws Exception {
+
+    public ModelAndView findAll(@RequestParam(name = "page", required = true, defaultValue = "1") Integer page, @RequestParam(name = "size", required = true, defaultValue = "4") Integer size) throws Exception {
         ModelAndView mv = new ModelAndView();
         List<UserInfo> users = service.findAll(page, size);
         PageInfo pageInfo = new PageInfo(users);
@@ -75,12 +82,47 @@ public class UsersController {
      * @return
      * @throws Exception
      */
+
     @RequestMapping("/findById")
-    public ModelAndView findById(@RequestParam(name = "page", required = true, defaultValue = "1") int page, @RequestParam(name = "size", required = true, defaultValue = "4") int size, String id) throws Exception {
+    public ModelAndView findById(@RequestParam(name = "page", required = true, defaultValue = "1") Integer page, @RequestParam(name = "size", required = true, defaultValue = "4") Integer size, String id) throws Exception {
         ModelAndView mv = new ModelAndView();
         UserInfo userInfo = service.findById(id);
         mv.addObject("user", userInfo);
         mv.setViewName("user-show");
         return mv;
     }
+
+    /**
+     * 根据用户id获取没有绑定的角色
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/findUserByIdAndAllRole.do")
+    public ModelAndView findUserByIdAndAllRole(String id) throws Exception {
+        ModelAndView mv = new ModelAndView();
+        List<Role> roleList = roleService.findUserByIdAndAllRole(id);
+        mv.addObject("id", id);
+        mv.addObject("roleList", roleList);
+
+        mv.setViewName("user-role-add");
+        return mv;
+    }
+
+    /***
+     * 根据id绑定角色
+     * @param userid
+     * @param ids
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/addRoleToUser.do")
+    public String addRoleToUser(@RequestParam(name = "userId", required = true) String userid, @RequestParam(name = "ids", required = true) String[] ids) throws Exception {
+
+        roleService.addRoleToUser(userid, ids);
+        return "redirect:findUserByIdAndAllRole.do?id=" + userid;
+
+    }
 }
+

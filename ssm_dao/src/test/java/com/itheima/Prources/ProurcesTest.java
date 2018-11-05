@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author: XXX
@@ -18,8 +18,14 @@ public class ProurcesTest {
     public void testProurcesTest() throws Exception {
         ApplicationContext ac=new ClassPathXmlApplicationContext("spring/applicationContext-dao.xml");
         IRoleDao bean = ac.getBean(IRoleDao.class);
-        Role byId = bean.findById("1111");
-        System.out.println(byId.toString());
+        Map<String,Object> rolemap = new LinkedHashMap<String,Object>();
+        rolemap.put("userid", "111-222");
+        rolemap.put("roleid", "EFEBA0395EB749449958A4C58EA06A70");
+
+
+        bean.addRoleToUser(rolemap);
+
+
 
     }
 }

@@ -32,11 +32,12 @@
 
             </a>
                 <ul class="treeview-menu">
-
+<security:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
                     <li><a
                             href="${pageContext.request.contextPath}/user/findAll.do"> <i
                             class="fa fa-circle-o"></i> 用户管理
                     </a></li>
+</security:authorize>
                     <li><a
                             href="${pageContext.request.contextPath}/role/findAll.do"> <i
                             class="fa fa-circle-o"></i> 角色管理
